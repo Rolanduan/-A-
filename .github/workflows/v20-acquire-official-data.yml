@@ -26,6 +26,11 @@ jobs:
             jobs += [(f"TIGER_PLACE_{st}",f"https://www2.census.gov/geo/tiger/TIGER2024/PLACE/tl_2024_{st}_place.zip",off/f"tl_2024_{st}_place.zip","ZIP"),
                      (f"TIGER_TRACT_{st}",f"https://www2.census.gov/geo/tiger/TIGER2024/TRACT/tl_2024_{st}_tract.zip",off/f"tl_2024_{st}_tract.zip","ZIP")]
           jobs.append(("NCES_CCD_2024_25_DIRECTORY","https://nces.ed.gov/ccd/Data/zip/ccd_sch_029_2425_w_0a_051425.zip",sup/"ccd_sch_029_2425_w_0a_051425.zip","ZIP"))
+          jobs.append(("NCES_CCD_2024_25_LUNCH_V1A","https://nces.ed.gov/ccd/Data/zip/ccd_sch_033_2425_l_1a_073025.zip",sup/"ccd_sch_033_2425_l_1a_073025.zip","ZIP"))
+          jobs.append(("NCES_CCD_2024_25_LEA_DIRECTORY","https://nces.ed.gov/ccd/Data/zip/ccd_lea_029_2425_w_0a_051425.zip",sup/"ccd_lea_029_2425_w_0a_051425.zip","ZIP"))
+          for st in ["06","08","13","17","25","27","37","41","42","48","53","55"]:
+            for typ in ["ELSD","SCSD","UNSD"]:
+              jobs.append((f"TIGER_{typ}_{st}",f"https://www2.census.gov/geo/tiger/TIGER2024/{typ}/tl_2024_{st}_{typ.lower()}.zip",off/f"tl_2024_{st}_{typ.lower()}.zip","ZIP"))
           for c in ["44201","42401","42101","42602","88101"]:
             jobs.append((f"EPA_AIR_{c}_2024",f"https://aqs.epa.gov/aqsweb/airdata/daily_{c}_2024.zip",sup/f"daily_{c}_2024.zip","ZIP"))
           for fn in ["ghcnd-stations.txt","ghcnd-inventory.txt","readme.txt","ghcnd-version.txt"]:
