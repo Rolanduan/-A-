@@ -1,0 +1,60 @@
+name: Export research package sources
+on:
+  push:
+    branches:
+      - codex/v19-inspect-archives
+permissions:
+  contents: read
+  actions: write
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract project archives and create inventory
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib, json, pathlib, zipfile
+          root = pathlib.Path(".")
+          out = pathlib.Path("exported_sources")
+          out.mkdir(exist_ok=True)
+          names = [
+              "V18_FULL_AUTORUN_RESEARCH_PACKAGE.zip",
+              "V19_UNIFIED_COMPLETE_AUTORUN_RESEARCH_PACKAGE.zip",
+              "V19.1_UPGRADE_PATCH_PACKAGE.zip",
+          ]
+          inventory = {"archives": [], "files": []}
+          for name in names:
+              p = root / name
+              if not p.exists():
+                  inventory["archives"].append({"name": name, "status": "MISSING"})
+                  continue
+              digest = hashlib.sha256(p.read_bytes()).hexdigest()
+              target = out / pathlib.Path(name).stem
+              target.mkdir(parents=True, exist_ok=True)
+              with zipfile.ZipFile(p) as z:
+                  bad = z.testzip()
+                  entries = []
+                  for info in z.infolist():
+                      if info.is_dir():
+                          continue
+                      dest = (target / info.filename).resolve()
+                      if target.resolve() not in dest.parents:
+                          raise RuntimeError(f"Unsafe archive path: {info.filename}")
+                      z.extract(info, target)
+                      entries.append({"path": info.filename, "bytes": info.file_size})
+                      inventory["files"].append({"archive": name, **entries[-1]})
+                  inventory["archives"].append({
+                      "name": name, "bytes": p.stat().st_size, "sha256": digest,
+                      "entries": len(entries), "zip_test": "PASS" if bad is None else f"FAIL:{bad}"
+                  })
+          (out / "SOURCE_INVENTORY.json").write_text(json.dumps(inventory, indent=2), encoding="utf-8")
+          print(json.dumps(inventory["archives"], indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v18-v19-source-export
+          path: exported_sources/
+          if-no-files-found: error
+          retention-days: 7
