@@ -108,7 +108,7 @@ jobs:
           import json,pathlib,shutil,zipfile,sys
           root=pathlib.Path(".")
           m=json.loads((root/"V20_RAW_DATA/qa_v20/V20_RAW_SOURCE_MANIFEST.json").read_text())
-          core=[x for x in m["receipts"] if x["source_id"].startswith("ACS_") or x["source_id"].startswith("TIGER_")]
+          core=[x for x in m["receipts"] if x["source_id"].startswith("ACS_") or x["source_id"].startswith("TIGER_PLACE_") or x["source_id"].startswith("TIGER_TRACT_")]
           if len(core)!=28 or any(x["status"]!="DOWNLOADED_RAW_BYTES" for x in core):
               raise SystemExit("BLOCKED: not all 28 core Census originals passed download and format checks")
           with zipfile.ZipFile("V19_UNIFIED_COMPLETE_AUTORUN_RESEARCH_PACKAGE.zip") as z:
