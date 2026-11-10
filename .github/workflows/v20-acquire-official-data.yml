@@ -16,8 +16,8 @@ jobs:
         run: |
           python - <<'PY'
           import csv,datetime as dt,gzip,hashlib,json,pathlib,time,urllib.error,urllib.request,zipfile
-          root=pathlib.Path("V20_RAW_DATA"); off=root/"data/raw_official/v20"; sup=root/"data/raw_supplemental/v20"; qa=root/"qa_v20"
-          off.mkdir(parents=True,exist_ok=True);sup.mkdir(parents=True,exist_ok=True);qa.mkdir(parents=True,exist_ok=True)
+          root=pathlib.Path("V20_RAW_DATA"); off=root/"data/raw_official/v20"; sd=root/"data/raw_official/v20_school_districts"; sup=root/"data/raw_supplemental/v20"; qa=root/"qa_v20"
+          off.mkdir(parents=True,exist_ok=True);sd.mkdir(parents=True,exist_ok=True);sup.mkdir(parents=True,exist_ok=True);qa.mkdir(parents=True,exist_ok=True)
           ua="Y-CITY-SYORA-V20-Data-Acquisition/1.0 (bounded public research)"
           jobs=[]; base="https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/"
           for t in ["B01001","B25070","B28002","B17001"]:
@@ -30,7 +30,7 @@ jobs:
           jobs.append(("NCES_CCD_2024_25_LEA_DIRECTORY","https://nces.ed.gov/ccd/Data/zip/ccd_lea_029_2425_w_0a_051425.zip",sup/"ccd_lea_029_2425_w_0a_051425.zip","ZIP"))
           for st in ["06","08","13","17","25","27","37","41","42","48","53","55"]:
             for typ in ["ELSD","SCSD","UNSD"]:
-              jobs.append((f"TIGER_{typ}_{st}",f"https://www2.census.gov/geo/tiger/TIGER2024/{typ}/tl_2024_{st}_{typ.lower()}.zip",off/f"tl_2024_{st}_{typ.lower()}.zip","ZIP"))
+              jobs.append((f"TIGER_{typ}_{st}",f"https://www2.census.gov/geo/tiger/TIGER2024/{typ}/tl_2024_{st}_{typ.lower()}.zip",sd/f"tl_2024_{st}_{typ.lower()}.zip","ZIP"))
           for c in ["44201","42401","42101","42602","88101"]:
             jobs.append((f"EPA_AIR_{c}_2024",f"https://aqs.epa.gov/aqsweb/airdata/daily_{c}_2024.zip",sup/f"daily_{c}_2024.zip","ZIP"))
           for fn in ["ghcnd-stations.txt","ghcnd-inventory.txt","readme.txt","ghcnd-version.txt"]:
@@ -69,6 +69,8 @@ jobs:
                 tmp.replace(path);status="DOWNLOADED_RAW_BYTES";err=None;break
               except urllib.error.HTTPError as e:
                 err=f"HTTP_{e.code}:{e.reason}"
+                if e.code==404 and sid.startswith(("TIGER_ELSD_","TIGER_SCSD_")):
+                  status="NOT_PUBLISHED_FOR_STATE";err="No such school-district type is published for this state in this TIGER vintage";break
                 if e.code in (403,429):break
               except Exception as e:err=repr(e)
               time.sleep(2**attempt)
@@ -78,15 +80,37 @@ jobs:
               "path":str(path),"content_type":ctype,"error":err,"retrieved_utc":dt.datetime.now(dt.timezone.utc).isoformat()})
             print(sid,status,receipts[-1]["bytes"],err or "")
           manifest={"generated_utc":dt.datetime.now(dt.timezone.utc).isoformat(),"expected":len(jobs),
-            "downloaded":sum(x["status"]=="DOWNLOADED_RAW_BYTES" for x in receipts),"receipts":receipts}
+            "downloaded":sum(x["status"]=="DOWNLOADED_RAW_BYTES" for x in receipts),
+            "not_published_for_state":sum(x["status"]=="NOT_PUBLISHED_FOR_STATE" for x in receipts),"receipts":receipts}
           (qa/"V20_RAW_SOURCE_MANIFEST.json").write_text(json.dumps(manifest,indent=2),encoding="utf-8")
-          print("SOURCE_RESULT",manifest["downloaded"],"/",manifest["expected"])
+          print("SOURCE_RESULT",manifest["downloaded"],"/",manifest["expected"],"NOT_PUBLISHED",manifest["not_published_for_state"])
           PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: v20-official-raw-data
-          path: V20_RAW_DATA/
+          name: v20-census-core
+          path: V20_RAW_DATA/data/raw_official/v20/
+          if-no-files-found: warn
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v20-supplemental
+          path: V20_RAW_DATA/data/raw_supplemental/v20/
+          if-no-files-found: warn
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v20-school-districts
+          path: V20_RAW_DATA/data/raw_official/v20_school_districts/
+          if-no-files-found: warn
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v20-source-manifest
+          path: V20_RAW_DATA/qa_v20/V20_RAW_SOURCE_MANIFEST.json
           if-no-files-found: warn
           retention-days: 14
 
@@ -99,8 +123,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
-          name: v20-official-raw-data
+          name: v20-census-core
           path: V20_RAW_DATA/
+      - uses: actions/download-artifact@v4
+        with:
+          name: v20-source-manifest
+          path: V20_RAW_DATA/qa_v20/
       - name: Extract V19 engine and stage acquired Census originals
         shell: bash
         run: |
