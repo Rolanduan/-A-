@@ -1,0 +1,280 @@
+{
+  "schema_version": "1.0",
+  "project": "Y-CITY x SYORA V20",
+  "frozen_reference": {
+    "acs_vintage": "2024 ACS 5-year (2020-2024 estimates)",
+    "tiger_vintage": "TIGER/Line 2024",
+    "cities": [
+      {
+        "name": "Austin",
+        "state": "TX",
+        "state_fips": "48",
+        "place_geoid": "4805000"
+      },
+      {
+        "name": "Boston",
+        "state": "MA",
+        "state_fips": "25",
+        "place_geoid": "2507000"
+      },
+      {
+        "name": "Chicago",
+        "state": "IL",
+        "state_fips": "17",
+        "place_geoid": "1714000"
+      },
+      {
+        "name": "Denver",
+        "state": "CO",
+        "state_fips": "08",
+        "place_geoid": "0820000"
+      },
+      {
+        "name": "Madison",
+        "state": "WI",
+        "state_fips": "55",
+        "place_geoid": "5548000"
+      },
+      {
+        "name": "Minneapolis",
+        "state": "MN",
+        "state_fips": "27",
+        "place_geoid": "2743000"
+      },
+      {
+        "name": "Pittsburgh",
+        "state": "PA",
+        "state_fips": "42",
+        "place_geoid": "4261000"
+      },
+      {
+        "name": "Portland",
+        "state": "OR",
+        "state_fips": "41",
+        "place_geoid": "4159000"
+      },
+      {
+        "name": "Raleigh",
+        "state": "NC",
+        "state_fips": "37",
+        "place_geoid": "3755000"
+      },
+      {
+        "name": "San Diego",
+        "state": "CA",
+        "state_fips": "06",
+        "place_geoid": "0666000"
+      },
+      {
+        "name": "Seattle",
+        "state": "WA",
+        "state_fips": "53",
+        "place_geoid": "5363000"
+      },
+      {
+        "name": "Atlanta",
+        "state": "GA",
+        "state_fips": "13",
+        "place_geoid": "1304000"
+      }
+    ]
+  },
+  "core_sources": [
+    {
+      "id": "ACS_B01001",
+      "publisher": "US Census Bureau",
+      "vintage": "2024 ACS 5-year",
+      "kind": "original_table_based_dat",
+      "url": "https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b01001.dat",
+      "required": true,
+      "use": "Age/sex population; tract 15-17 proxy and MOE."
+    },
+    {
+      "id": "ACS_B25070",
+      "publisher": "US Census Bureau",
+      "vintage": "2024 ACS 5-year",
+      "kind": "original_table_based_dat",
+      "url": "https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b25070.dat",
+      "required": true,
+      "use": "Gross rent as percentage of household income; exclude not-computed denominator."
+    },
+    {
+      "id": "ACS_B28002",
+      "publisher": "US Census Bureau",
+      "vintage": "2024 ACS 5-year",
+      "kind": "original_table_based_dat",
+      "url": "https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b28002.dat",
+      "required": true,
+      "use": "Broadband of any type; frozen model uses E004/E001, not E002."
+    },
+    {
+      "id": "ACS_B17001",
+      "publisher": "US Census Bureau",
+      "vintage": "2024 ACS 5-year",
+      "kind": "original_table_based_dat",
+      "url": "https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b17001.dat",
+      "required": true,
+      "use": "Poverty status in table universe; not youth-specific poverty."
+    },
+    {
+      "id": "TIGER_PLACE",
+      "publisher": "US Census Bureau",
+      "vintage": "2024",
+      "kind": "state_place_shapefile_zip",
+      "url_template": "https://www2.census.gov/geo/tiger/TIGER2024/PLACE/tl_2024_{STATE}_place.zip",
+      "required": true,
+      "states": [
+        "06",
+        "08",
+        "13",
+        "17",
+        "25",
+        "27",
+        "37",
+        "41",
+        "42",
+        "48",
+        "53",
+        "55"
+      ]
+    },
+    {
+      "id": "TIGER_TRACT",
+      "publisher": "US Census Bureau",
+      "vintage": "2024",
+      "kind": "state_tract_shapefile_zip",
+      "url_template": "https://www2.census.gov/geo/tiger/TIGER2024/TRACT/tl_2024_{STATE}_tract.zip",
+      "required": true,
+      "states": [
+        "06",
+        "08",
+        "13",
+        "17",
+        "25",
+        "27",
+        "37",
+        "41",
+        "42",
+        "48",
+        "53",
+        "55"
+      ]
+    },
+    {
+      "id": "OSM_WALK_GRAPH",
+      "publisher": "OpenStreetMap contributors / Overpass or Geofabrik",
+      "vintage": "per-city retrieval timestamp",
+      "kind": "raw_osm_plus_derived_graph",
+      "required": true,
+      "url": "https://download.geofabrik.de/north-america/us.html",
+      "alternate": "https://overpass-api.de/api/interpreter",
+      "license": "ODbL; attribution required",
+      "use": "Preserve original Overpass JSON or original PBF, SHA256, derived GraphML, tags and OD route receipts for each of 12 cities."
+    },
+    {
+      "id": "IMLS_PLS_FY2024",
+      "publisher": "Institute of Museum and Library Services",
+      "vintage": "FY2024",
+      "kind": "official_csv_zip_plus_user_guide",
+      "required_for_external_validation": true,
+      "url": "https://www.imls.gov/research-evaluation/surveys/public-libraries-survey-pls",
+      "use": "Independent library-outlet comparator; not a replacement for OSM POI."
+    },
+    {
+      "id": "COMAP_SUMMARY_TEX",
+      "publisher": "COMAP",
+      "vintage": "2026 HiMCM",
+      "kind": "official_template_tex",
+      "required_for_paper_preflight": true,
+      "url": "https://www.contest.comap.org/highschool/contests/himcm/flyers/HiMCM-MidMCM_Summary.tex"
+    }
+  ],
+  "supplemental_sources": [
+    {
+      "id": "NCES_CCD_2024_25",
+      "publisher": "NCES / IES",
+      "vintage": "2024-25",
+      "url": "https://nces.ed.gov/use-work/dataset/2024-25-common-core-data-ccd-universe-files-version-1a",
+      "download_index": "https://nces.ed.gov/ccd/psu_rev.asp",
+      "use": "School locations/enrollment; separate branch, not guaranteed admission."
+    },
+    {
+      "id": "NCES_EDGE_SCHOOL_LOCATIONS",
+      "publisher": "NCES",
+      "vintage": "release-specific",
+      "url": "https://nces.ed.gov/programs/edge/Geographic/SchoolLocations",
+      "use": "Geocoded school locations; cross-check CCD."
+    },
+    {
+      "id": "EPA_AIRDATA",
+      "publisher": "US EPA",
+      "vintage": "annual/daily",
+      "url": "https://www.epa.gov/outdoor-air-quality-data/download-daily-data",
+      "use": "Criteria-pollutant monitor daily summaries; audit monitor coverage."
+    },
+    {
+      "id": "NOAA_GHCN_DAILY",
+      "publisher": "NOAA NCEI",
+      "vintage": "station/date range",
+      "url": "https://www.ncei.noaa.gov/products/land-based-station/global-historical-climatology-network-daily",
+      "download": "https://www.ncei.noaa.gov/pub/data/ghcn/daily/",
+      "use": "Climate context; station distance and completeness."
+    },
+    {
+      "id": "FBI_CDE_UCR",
+      "publisher": "FBI",
+      "vintage": "year/offense definition",
+      "url": "https://cde.ucr.cjis.gov/LATEST/webapp/#/pages/downloads",
+      "use": "Separate safety proxy; reporting coverage varies."
+    },
+    {
+      "id": "BTS_NATIONAL_TRANSIT_MAP",
+      "publisher": "BTS / US DOT",
+      "vintage": "snapshot-specific",
+      "url": "https://www.bts.gov/national-transit-map",
+      "use": "Transit coverage; not a timetable or proof of student access."
+    },
+    {
+      "id": "GTFS_FEEDS",
+      "publisher": "Transit agencies / Mobility Database",
+      "vintage": "feed snapshot per agency",
+      "url": "https://mobilitydatabase.org/",
+      "use": "Scheduled routes/stops/headways; archive feed bytes and license."
+    },
+    {
+      "id": "HRSA_HPSA",
+      "publisher": "HRSA",
+      "vintage": "designation snapshot",
+      "url": "https://data.hrsa.gov/topics/health-workforce/shortage-areas",
+      "use": "Healthcare shortage context; not individual access."
+    },
+    {
+      "id": "CDC_PLACES",
+      "publisher": "CDC",
+      "vintage": "release-specific",
+      "url": "https://www.cdc.gov/places/",
+      "use": "Small-area health context; ecological not individual teen outcomes."
+    },
+    {
+      "id": "PARKSERVE",
+      "publisher": "Trust for Public Land",
+      "vintage": "release-specific",
+      "url": "https://www.tpl.org/park-data-downloads",
+      "use": "Independent park access check; verify license before bundling."
+    },
+    {
+      "id": "CITY_OPEN_DATA_PORTALS",
+      "publisher": "12 municipal publishers",
+      "vintage": "dataset-specific",
+      "url": "",
+      "use": "Find official park/library/trail/sidewalk/gate/closure data; each selected dataset needs its own URL, schema, license and raw-byte receipt."
+    },
+    {
+      "id": "CENSUS_API_CROSSCHECK",
+      "publisher": "US Census Bureau",
+      "vintage": "2024 ACS 5-year",
+      "url": "https://api.census.gov/data/2024/acs/acs5.html",
+      "use": "Independent cross-check only; never replaces whole-table DAT originals."
+    }
+  ]
+}
