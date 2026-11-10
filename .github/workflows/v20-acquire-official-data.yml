@@ -36,6 +36,15 @@ jobs:
           for fn in ["ghcnd-stations.txt","ghcnd-inventory.txt","readme.txt","ghcnd-version.txt"]:
             jobs.append((f"NOAA_{fn}",f"https://www.ncei.noaa.gov/pub/data/ghcn/daily/{fn}",sup/fn,"TXT"))
           jobs.append(("NOAA_GHCN_2024_BY_YEAR","https://www.ncei.noaa.gov/pub/data/ghcn/daily/by_year/2024.csv.gz",sup/"2024.csv.gz","GZIP"))
+          jobs.append(("IMLS_PLS_FY2024_CSV_ZIP","https://www.imls.gov/sites/default/files/2026-06/pls_fy2024_csv.zip",sup/"pls_fy2024_csv.zip","ZIP"))
+          jobs.append(("IMLS_PLS_FY2024_GUIDE_PDF","https://www.imls.gov/sites/default/files/2026-06/PublicLibrariesSurvey_FiscalYear2024_DataDocumentationandUsersGuide.pdf",sup/"imls_pls_fy2024_guide.pdf","PDF"))
+          for year,base,dat,inp,fmt,guide in [
+            ("2021","https://www.cdc.gov/yrbs/files/sadc_2021/","Sadc_2021_district.dat","2021-SADC-SAS-Input-Program.sas","2021-SADC-SAS-Formats-Program.sas","https://www.cdc.gov/yrbs/files/2021/pdf/2021-YRBS-SADC-Documentation508.pdf"),
+            ("2023","https://www.cdc.gov/yrbs/files/sadc_2023/HS/","sadc_2023_district.dat","2023-SADC-SAS-Input-Program.sas","2023-SADC-SAS-Formats-Program.sas","https://www.cdc.gov/yrbs/media/pdf/2023/2023-YRBS-SADC-Documentation.pdf")]:
+            jobs.append((f"CDC_YRBSS_{year}_DISTRICT_DAT",base+dat,sup/f"yrbss_{year}_district.dat","DAT_FIXED"))
+            jobs.append((f"CDC_YRBSS_{year}_SAS_INPUT",base+inp,sup/f"yrbss_{year}_sas_input.sas","SAS"))
+            jobs.append((f"CDC_YRBSS_{year}_SAS_FORMAT",base+fmt,sup/f"yrbss_{year}_sas_formats.sas","SAS"))
+            jobs.append((f"CDC_YRBSS_{year}_GUIDE",guide,sup/f"yrbss_{year}_guide.pdf","PDF"))
           receipts=[]
           for sid,url,path,fmt in jobs:
             status="FAILED";err=None;final=None;ctype=None;tmp=path.with_suffix(path.suffix+".part")
@@ -58,6 +67,14 @@ jobs:
                     if bad:raise RuntimeError("ZIP_CRC:"+str(bad))
                 if fmt=="GZIP":
                   with gzip.open(tmp,"rb") as f:f.read(128)
+                if fmt=="PDF" and not head.startswith(b"%pdf-"):raise RuntimeError("PDF_SIGNATURE_FAIL")
+                if fmt in ("SAS","DAT_FIXED"):
+                  if b"\\x00" in head:raise RuntimeError("TEXT_NUL_FAIL")
+                  head.decode("ascii")
+                if fmt=="DAT_FIXED":
+                  with tmp.open("rb") as f:
+                    sample=f.readline()
+                  if len(sample.strip())<30:raise RuntimeError("FIXED_WIDTH_SAMPLE_TOO_SHORT")
                 if fmt=="DAT":
                   with tmp.open(encoding="utf-8-sig",newline="") as f:h=next(csv.reader(f,delimiter="|"))
                   table=sid.split("_",1)[1]
