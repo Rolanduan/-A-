@@ -106,7 +106,7 @@ jobs:
         if: always()
         with:
           name: v20-census-core
-          path: V20_RAW_DATA/data/raw_official/v20/
+          path: V20_RAW_DATA/data/raw_official/v20/data/raw_official/v20/
           if-no-files-found: warn
           retention-days: 14
       - uses: actions/upload-artifact@v4
