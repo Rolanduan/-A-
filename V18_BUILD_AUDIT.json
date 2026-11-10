@@ -1,0 +1,45 @@
+{
+  "version": "V18.0",
+  "date_utc": "2026-11-09T08:18:46.776209+00:00",
+  "input": {
+    "source_archive": "V17_FULL_AUTORUN_RESEARCH_PACKAGE.zip",
+    "source_archive_sha256": "d2792a35805d0943e6dc640d0f81c283fe4df93dab43f3ad2d5b0d00c0ac742e"
+  },
+  "scientific_spine": "Unchanged 12 U.S. cities; 28 required original Census files; 12 real OSM pedestrian network source records; M0/M1 with same-POI ablation",
+  "new_code_modules": [
+    "evidence_frontier.py",
+    "preference_paths.py",
+    "decision_atlas.py",
+    "decision_evidence_review.py",
+    "decision_release.py"
+  ],
+  "verification": {
+    "python_compileall": "PASS",
+    "isolated_pytest_passed": 89,
+    "source_only_dry_run_stages": 30,
+    "dry_run_order": "PASS",
+    "actual_negative_data_release_exit_code": 3,
+    "negative_gate_result": "BLOCKED_FOR_V18_GIS_PAPER",
+    "raw_census_downloaded_bytes_in_package": 0,
+    "raw_osm_pbf_or_graphml_in_package": 0,
+    "verified_twelve_city_rank": false,
+    "actual_real_data_paper_compiled": false,
+    "competitor_code_imported": false
+  },
+  "new_report_scope": [
+    "OUTER_EVIDENCE_HORIZON_NOT_JOINT_CONFIDENCE",
+    "EVIDENCE_PRIORITY_NOT_EXPECTED_GAIN",
+    "ANALYST_DECLARED_PREF_NOT_SURVEY",
+    "EXACT_LINEAR_SWITCHPOINT_NOT_STOCHASTIC_WIN_PROBABILITY"
+  ],
+  "run_status": "SOURCE_ONLY_TESTED / NOT_RAN_OFFICIAL_DATA_PIPELINE",
+  "ready_for_empirical_release": false,
+  "expected_real_run_outputs": [
+    "qa_v18/census_original_manifest.json",
+    "results_v18_gis/FINAL_12_CITY_REAL_GIS_RANKING.csv",
+    "results_v18_gis/V18_EVIDENCE_HORIZON.csv",
+    "results_v18_gis/V18_DECLARED_PREFERENCE_FAMILIES.csv",
+    "results_v18_gis/V18_EXACT_LEADER_TRANSITIONS.csv",
+    "paper_v18_official_gis/V18_EMPIRICAL_YOUTH_CITY_NETWORK_RESEARCH.pdf"
+  ]
+}

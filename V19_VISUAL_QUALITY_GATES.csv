@@ -1,0 +1,14 @@
+﻿priority,quality_gate,acceptance,test_method
+P0,Official 25-page limit,"One-page summary is physical PDF page 1; news 1–2 pages; references, TOC and appendices within 25; AI report separate after page 25",PyMuPDF page-count + body/AI boundary + rendered inspection
+P0,COMAP identity/header,"If actual registered contest: control # and page number at page top, no names; independent paper may not invent a team ID",Inspect PDF header every page and manual signoff
+P0,Font legibility,Conservatively use >=12 pt for visible report/figure lettering at final printed size; never blindly copy 5-7pt Nature reduction,PyMuPDF spans + embedded image visual inspection; flag exceptions
+P0,No fabricated figures,Numerical plots only after real source + released rank + figure manifest,Each figure_sha -> input file hashes -> run_id and config digest
+P0,Source/vintage and claim integrity,"Each map/figure labels ACS2024/OSM snapshot, unit, sample, eligibility and uncertainty semantics",Claim registry cross-check
+P0,Real map geography,"CRS, scale, city/buffer, actual OSM edges & facilities; no fake isochrones",GIS graph-to-figure coordinate audit
+P1,Algorithm proof-to-visual linkage,I exact route equivalence; II small-instance exact and submod test; III rerouting and tail-average identity,Equation_contracts + unit/test/figure mapping
+P1,Panel hygiene,"Min 2 mm spacing, no titles overlapping, panel tags A/B/C ordered, one main claim",Render pages 160–200dpi and inspect
+P1,Visual accessibility,"Colorblind-safe, grayscale legible, line styles and direct labels","Grayscale render, colorblind simulation and manual check"
+P1,Numerical text consistency,"Summary, text, tables, figures and news from same frozen release run",Generate LaTeX macros from exact output CSV; check all values
+P1,No graphics remnants,Replace F17/F18 filenames in final V19 outputs; maintain compatibility mapping only in migration code,No old output ID grep; no broken referenced assets
+P1,Raster quality and fonts,"Preferred vector PDF/SVG; raster at intended 300–600dpi if necessary, no outlines/clipped glyphs",pdf_preflight + bbox checks + render inspection
+P2,Editorial concision,"Each main figure must be discussed in nearby paragraph, result not mere illustration",Narrative figure crossrefs audit

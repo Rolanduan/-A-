@@ -1,0 +1,26 @@
+﻿physical_page,section_or_block,content_budget,gate
+1,Summary Sheet,"Problem, approach, actual winner/score, revision, uncertainty",Result-conditioned; create after complete run
+2,Table of Contents,Real page numbers and section names,One page target; reference last
+3,Introduction & Restatement,"Question, exact population, 12-city scope, evaluation claim",No hero art; 1 coherent promise
+4,Assumptions & Criteria,A1–A10 and considered/excluded criteria,Short justified table
+5,Official Data and Integrity,"28 original files, SHA256, ACS sampling windows",Provenance table with vintage
+6,Geographic Matching,TIGER/place/tract/youth proxy and OSM source,Small spatial overlay explanation
+7,Systems Architecture,Single F19-01 with labeled mathematical interfaces,No unlabeled arrows
+8,Algorithm I: Derivation,"Directed truncated shortest paths, routing budget and correctness","Pseudo-code, conditions, complexity"
+9,Algorithm I: Benchmark,"F19-03 exactness, performance, error and unreachable status","Must use measured runtime, not projected gains"
+10,Significant Model Revision,F19-04 same-POI controlled comparison M0/M1,Explicit diagnosis and same-input contrast
+11,Ranking Result,F19-05 complete 12-city reference scores and caveats,No release if data absent
+12,GIS Mechanism Case,"F19-06 genuine map, route, entry caveat",Legend north/scale/CRS provenance
+13,Algorithm II: Objective & Proof,"Monotone submodular conditions, CELF, limitations",State 1-1/e only under qualified assumptions
+14,Algorithm II: Experiments,F19-07 real candidate gains and verified baselines,No inference to actual construction feasibility
+15,Algorithm III: Mathematical Form,Population lower tail CVaR and edge-disruption model,Clarify distinct from Q10 reference
+16,Algorithm III: Empirical Result,F19-08 equity and edge-removal results,True graph rerouting per edge
+17,Systems Principles Tested,"Evidence test matrix across cross-boundary, threshold, holism",Not identifiable labels
+18,Statistical and Eligibility Uncertainty,"ACS MOE, facility tags, spatial allocation separate",No false joint CI
+19,"Preference, Pareto, Regret",Six-utility LP and switchpoints,Reference ranking frozen
+20,Sensitivity & External Validation,"Road disruption, speed, sources and IMLS compare",Report what fails and changes winner
+21,Limitations & Concluding Paragraph,"Explicit recommendation, limitations, future path",Conclude before memo/news
+22,Nontechnical News Article I,"Lead: conditional best city, real-life relevance",No equations; same data source
+23,Nontechnical News Article II,"Plain-language method, strengths, caveats",Must stay 1–2 pages total
+24,Reference List I,"Official raw data, maps, mathematical classics",Every in-text citation resolved
+25,Reference List II / overflow reserve,"Software, ethics/AI citations, remaining references",Keep reference list last; could combine and free page

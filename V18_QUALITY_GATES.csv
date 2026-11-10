@@ -1,0 +1,25 @@
+gate_id,severity,requirement,code_or_source,evidence_after_live_run,status_at_source_delivery
+G01,P0,28 original official Census ACS/TIGER source files,code_v18/acquire_census.py,qa_v18/census_original_manifest.json,CODE_PRESENT_NO_ORIGINAL_BYTES
+G02,P0,Twelve actual OSM walk networks and source SHA,code_v18/network_overpass.py;code_v18/network_geofabrik.py,data/processed/v18_network/receipt_<geoid>.json,CODE_PRESENT_NO_GRAPH_BYTES
+G03,P0,Consistent twelve city ranking from official sources,code_v18/score_official_gis.py,results_v18_gis/FINAL_12_CITY_REAL_GIS_RANKING.csv,CODE_PRESENT_NOT_EXECUTED
+G04,P0,Same facility inventory vs straight line vs network vs equity,code_v18/model_ablation.py,results_v18_gis/V18_CONTROLLED_ABLATION.csv,CODE_PRESENT_NOT_EXECUTED
+G05,P0,Unknown access not admitted to reference,code_v18/access_policy.py,per-city POI list and bound receipts,CODE_PRESENT_NOT_EXECUTED
+G06,P0,Rebuild sampled shortest paths from raw OSM data,code_v18/replay_raw_network.py,qa_v18/independent_raw_osm_replay.json,CODE_PRESENT_NOT_EXECUTED
+G07,P0,Original official COMAP Summary page and explicit AI appendix,code_v18/official_summary.py;code_v18/ai_report_appendix.py,paper_v18_official_gis build receipt,CODE_PRESENT_NOT_EXECUTED
+G08,P0,Source-bound actual English paper and complete paper layout,code_v18/build_empirical_gis_paper.py,compiled paper and PDF audit,CODE_PRESENT_NOT_EXECUTED
+G09,P1,External IMLS locations measurement comparator,code_v18/external_imls_validation.py,results_v18_gis/V18_IMLS_OSM_INDEPENDENT_COVERAGE.csv,CODE_PRESENT_NOT_EXECUTED
+G10,P1,Real 27 structural scenarios and ACS MOE stress,code_v18/sensitivity_official_gis.py;code_v18/uncertainty_envelopes.py,324 rows and 12 true measured envelopes,CODE_PRESENT_NOT_EXECUTED
+G11,P1,Actual 18 route stress cases and edge failures,code_v18/stress_real_routes.py;code_v18/edge_failure_stress.py,216 rows and 12-city edge failure diagnostics,CODE_PRESENT_NOT_EXECUTED
+G12,P1,LP Pareto six-dimensional weight region,code_v18/robustness_lp.py,results_v18_gis/V18_PARETO_LP_MINIMAX_REGRET.csv,CODE_PRESENT_NOT_EXECUTED
+G13,P1,Systems theory hypotheses with honest nonidentifiability,code_v18/systems_hypothesis_tests.py,results_v18/SYSTEMS_THEORY_EMPIRICAL_TESTS.csv,CODE_PRESENT_NOT_EXECUTED
+G14,P1,Twelve real GIS maps and evidence atlas,code_v18/render_city_atlas_v18.py;code_v18/render_atlas.py,figure manifests and genuine vector figures,CODE_PRESENT_NOT_EXECUTED
+G15,P1,Official data original-to-paper source hash lineage,code_v18/audit_full_gis.py;code_v18/paper_claims.py,claim-evidence registers and receipt,CODE_PRESENT_NOT_EXECUTED
+G16,P1,Outer score evidence bound not probability,code_v18/evidence_frontier.py,results_v18_gis/V18_EVIDENCE_HORIZON.csv,OFFLINE_TESTED_PENDING_REAL_INPUT
+G17,P1,Conditional source verification queue not imputation,code_v18/evidence_frontier.py,results_v18_gis/V18_TARGETED_EVIDENCE_QUEUE.csv,OFFLINE_TESTED_PENDING_REAL_INPUT
+G18,P1,Analyst preference pathways not youth survey,code_v18/preference_paths.py,results_v18_gis/V18_DECLARED_PREFERENCE_FAMILIES.csv,OFFLINE_TESTED_PENDING_REAL_INPUT
+G19,P1,Exact leader-switch analytic threshold,code_v18/preference_paths.py,results_v18_gis/V18_EXACT_LEADER_TRANSITIONS.csv,OFFLINE_TESTED_PENDING_REAL_INPUT
+G20,P1,Rendered decision visual evidence with hashes,code_v18/decision_atlas.py,figures/v18_decision_evidence/V18_DECISION_FIGURES_MANIFEST.json,CODE_PRESENT_PENDING_REAL_INPUT
+G21,P1,Paper-specific epistemic claims not generic template,code_v18/decision_evidence_review.py,research/v18_epistemic_claim_registry.csv,CODE_PRESENT_PENDING_REAL_INPUT
+G22,P0,All V18 release facts linked to same source hashes,code_v18/decision_release.py,qa_v18/v18_decision_release_gate.json,CODE_NEGATIVE_GATE_TESTED
+G23,P0,Full auto pipeline version isolation and failure exit,code_v18/run_v18.py,qa_v18/v18_execution_state.json,OFFLINE_DRY_RUN_ONLY
+G24,P0,Human scientific peer review and research validity,external qualified reviewers,human_review_record.pdf,NOT_CLAIMED_CANNOT_BE_AUTOMATED

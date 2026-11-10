@@ -1,0 +1,50 @@
+{
+  "V19.1_GIS_ATLAS_AND_DISCUSSION_CONTRACT.md": {
+    "bytes": 5008,
+    "sha256": "5a9ee158a30ef4be44e1b67ff5dd81197edfb18c888e59206aa72bcf91754e04"
+  },
+  "V19.1_GIS_DISCUSSION_PROGRAM.csv": {
+    "bytes": 4228,
+    "sha256": "aca2883ad6c15d536f9852ff325c9762e0c42e802fca809ce1a8194465c5fcc9"
+  },
+  "V19.1_GRAPH_THEORY_MATRIX_DERIVATIONS.md": {
+    "bytes": 9212,
+    "sha256": "f3467058ac9f31f0f2c73616ff04cff601a87d379d4e803794e5cca30d9ae037"
+  },
+  "V19.1_DRAWIO_STANDARD_AND_DIAGRAM_CONTRACT.md": {
+    "bytes": 4889,
+    "sha256": "36287713c17ddb3cd5eb2175cba3a50cbb2abe24f91892ea065c420441121e7e"
+  },
+  "V19.1_UPGRADE_MASTER_PATCH.md": {
+    "bytes": 3201,
+    "sha256": "9d2da533854886245a12c9630806c1e7610748f302014d9bff1b94dadf43492d"
+  },
+  "V19.1_CHANGELOG.md": {
+    "bytes": 862,
+    "sha256": "7cc9d3b15ad680a7d30bf611f29074d0c721309651d089a3d63b6d7f12049a02"
+  },
+  "V19_DECISION_LOCK.md": {
+    "bytes": 3508,
+    "sha256": "37f323b58b66633d2f057b2096bc621198a4a4cbf1b4a4dcc3f2a1eb131f56df"
+  },
+  "V19_EXPERT_COUNCIL_VISUAL_DIRECTIVE.md": {
+    "bytes": 15657,
+    "sha256": "9b0f0ef4c9c54c18d8c2cdb611a1c76feb0805137c04d3c24cbae34e24f119d7"
+  },
+  "V19_GIS_ALL_MAPS_PRESERVATION_LOCK.md": {
+    "bytes": 4815,
+    "sha256": "f1419ed63523b90a4944dc4b9e580c135298e7fcd5a0cc44f108710b1a7a42a0"
+  },
+  "V19_FIGURE_PROGRAM.csv": {
+    "bytes": 4567,
+    "sha256": "0808ecf3555acb439a8a237b41aa7780e79ce880480eda802f24eec5e2eb9eaa"
+  },
+  "V19_VISUAL_QUALITY_GATES.csv": {
+    "bytes": 2299,
+    "sha256": "94f86149240e86ab0b6676ad93332042f45b9ddd5c24928d5ed03a6b7d23f28a"
+  },
+  "V19.1_UPGRADE_PATCH_PACKAGE.zip": {
+    "bytes": 30785,
+    "sha256": "e829f009220219378861b4cb8ef60d34cc71a7acf0ab7f50e54b020cf34b9ba1"
+  }
+}

@@ -1,0 +1,25 @@
+figure_family,figure_id,title,discussion_focus,claim_supported,required_cautions,linked_equations,linked_sections
+A,GIS-A1,US locator map,Explain frozen 12-city sample and spatial coverage,Defines study domain,No ranking inference from map alone,NA,Introduction and Problem Restatement
+A,GIS-A2,PLACE plus TRACT overlay,Explain Census geometry hierarchy and city boundary basis,Shows geographic analysis frame,Show 2024 vintage and leading-zero GEOIDs,Eq-Geo-1,Data and Assumptions
+A,GIS-A3,Youth-proxy choropleth,Explain ACS 15-17 proxy and tract allocation,Supports population-weighted access,Not exact individual residence,Eq-Geo-2,Data and Assumptions
+A,GIS-A4,Interpolation diagnostic,Explain area interpolation / overlay mechanics,Supports tract population proxy,Do not overclaim fine-grained truth,Eq-Geo-3,Technical Route
+B,GIS-B1,Pedestrian graph map,Explain real walkable graph and directionality,Supports Algorithm I routing base,Graph is not a social causal network,Eq-G1,Algorithm I
+B,GIS-B2,Eligibility map,Explain public restricted unknown facility classes,Supports access-bound handling,Unknown is not confirmed public,Eq-Elig-1,Algorithm I / Uncertainty
+B,GIS-B3,Routed access map,Explain selected OD paths and snapped endpoints,Supports actual-network access interpretation,Selected routes are illustrative not exhaustive,Eq-G2,Algorithm I
+B,GIS-B4,Opportunity choropleth,Explain tract-level opportunity metric,Shows within-city spatial inequality,Not a direct welfare measure,Eq-M1-Access,Current Opportunity Geography
+B,GIS-B5,10/20/30-minute reach corridors,Explain threshold effects on reachability,Supports time-window sensitivity,No Euclidean-circle substitution,Eq-G3,Sensitivity and GIS
+B,GIS-B6,Cross-boundary access map,Explain permeability and outside-boundary contributions,Supports open-systems claim,Boundary crossing not same as causal spillover,Eq-Sys-Open,Systems Discussion
+C,GIS-C1,Directed graph and node snapping,Explain graph construction and anchor mapping,Supports route accuracy,Snapping error should be reported,Eq-G1,Algorithm I
+C,GIS-C2,Directionality diagnostic,Explain forward/reverse route consistency,Supports directed routing correctness,No fictional speedup claims,Eq-G4,Algorithm I Validation
+C,GIS-C3,Truncated search coverage,Explain search frontier and computational scope,Supports algorithm efficiency,Efficiency is empirical not universal,Eq-G5,Algorithm I Validation
+D,GIS-D1,Candidate layer,Explain hypothetical candidate set,Supports intervention optimization setup,Candidates are not approved projects,Eq-Opt-1,Algorithm II
+D,GIS-D2,Selected placements,Explain greedy selected set for fixed K,Supports optimization decision pattern,Counterfactual only,Eq-Opt-2,Algorithm II
+D,GIS-D3,Before/after improvement map,Explain tract gains after placement,Supports intervention benefit,Compare under same frozen baseline,Eq-Opt-3,Algorithm II Results
+D,GIS-D4,Underserved improvement map,Explain gains in low-opportunity tracts,Supports equity relevance,Do not claim policy feasibility from model alone,Eq-Opt-4,Algorithm II Results
+E,GIS-E1,Low-opportunity tracts,Explain bottom-tail spatial concentration,Supports fairness diagnosis,Not identical to poverty map,Eq-Risk-1,Algorithm III
+E,GIS-E2,Tail fairness geography,Explain CVaR-related spatial burden,Supports lower-tail analysis,CVaR is not a probability of failure,Eq-Risk-2,Algorithm III
+E,GIS-E3,Vulnerable corridor map,Explain edge-removal importance,Supports network fragility interpretation,Hypothetical closure not observed event,Eq-Risk-3,Algorithm III
+E,GIS-E4,Opportunity loss after closure,Explain spatial consequence of edge removal,Supports resilience discussion,Static stress only not dynamic resilience,Eq-Risk-4,Algorithm III
+F,GIS-F1,12-city opportunity atlas,Explain consistent visual comparison,Supports comparative geography,Use frozen common color scale,Eq-M1-Access,Atlas
+F,GIS-F2,12-city network frame atlas,Explain network structure comparability,Supports context for access results,Not itself a quality ranking,Eq-G1,Atlas
+F,GIS-F3,12-city threshold atlas,Explain one common threshold comparison,Supports cross-city accessibility comparison,No different thresholds mixed together,Eq-G3,Atlas
