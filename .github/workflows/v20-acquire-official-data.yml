@@ -84,3 +84,57 @@ jobs:
           path: V20_RAW_DATA/
           if-no-files-found: warn
           retention-days: 14
+
+  build-real-osm-networks:
+    needs: acquire
+    if: always() && needs.acquire.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: v20-official-raw-data
+          path: V20_RAW_DATA/
+      - name: Extract V19 engine and stage acquired Census originals
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json,pathlib,shutil,zipfile,sys
+          root=pathlib.Path(".")
+          m=json.loads((root/"V20_RAW_DATA/qa_v20/V20_RAW_SOURCE_MANIFEST.json").read_text())
+          core=[x for x in m["receipts"] if x["source_id"].startswith("ACS_") or x["source_id"].startswith("TIGER_")]
+          if len(core)!=28 or any(x["status"]!="DOWNLOADED_RAW_BYTES" for x in core):
+              raise SystemExit("BLOCKED: not all 28 core Census originals passed download and format checks")
+          with zipfile.ZipFile("V19_UNIFIED_COMPLETE_AUTORUN_RESEARCH_PACKAGE.zip") as z:
+              z.extractall("V19_PACKAGE")
+          proj=root/"V19_PACKAGE/Y_CITY_SYORA_V19"
+          target=proj/"data/raw_official/v19";target.mkdir(parents=True,exist_ok=True)
+          for f in (root/"V20_RAW_DATA/data/raw_official/v20").iterdir():
+              shutil.copy2(f,target/f.name)
+          print("STAGED_CORE_ORIGINALS",len(list(target.iterdir())))
+          PY
+      - name: Install V19 GIS engine dependencies
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y graphviz gdal-bin libgdal-dev libspatialindex-dev
+          python -m pip install --upgrade pip
+          python -m pip install -r V19_PACKAGE/Y_CITY_SYORA_V19/code_v19/requirements_v19.txt
+      - name: Build tract origins and acquire twelve real OSM walking networks
+        shell: bash
+        run: |
+          cd V19_PACKAGE/Y_CITY_SYORA_V19
+          PYTHONPATH=code_v19 python code_v19/run_v19.py --stage geography
+          PYTHONPATH=code_v19 python code_v19/run_v19.py --stage networks --network overpass
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v20-osm-network-evidence
+          path: |
+            V19_PACKAGE/Y_CITY_SYORA_V19/data/raw_osm/
+            V19_PACKAGE/Y_CITY_SYORA_V19/data/processed/v19_network/
+            V19_PACKAGE/Y_CITY_SYORA_V19/data/processed/v19_gis/
+            V19_PACKAGE/Y_CITY_SYORA_V19/qa_v19/
+          if-no-files-found: warn
+          retention-days: 14
